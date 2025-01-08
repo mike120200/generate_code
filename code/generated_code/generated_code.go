@@ -9,6 +9,8 @@ func (code GeneratedCode) ReplaceProjectName(prjName string) string {
 	return strings.Replace(string(code), "projectName", prjName, -1)
 }
 
+// 需要生成的代码中包含项目名称的部分，需要用“projectName”替换
+// 例如："projectName/common/be_config"
 var LogCode GeneratedCode = `package zap_log
 
 import (

@@ -8,10 +8,13 @@ import (
 
 // CreateFileSrv 生成需要的代码文件服务
 type CreateFileSrv struct {
+	//存放需要创建的文件
 	fileMap map[string]string
-	Dir     string
+	//所有文件的父目录
+	Dir string
 }
 
+// NewCreateFileSrv 创建生成文件服务，dir为所有文件的父目录
 func NewCreateFileSrv(dir string) *CreateFileSrv {
 	return &CreateFileSrv{
 		fileMap: make(map[string]string),
