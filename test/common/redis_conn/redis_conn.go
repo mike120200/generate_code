@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 	"time"
-	config "test_binbin/common/be_config"
+	config "binbin/common/config"
 
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"

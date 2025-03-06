@@ -1,7 +1,7 @@
 package config_test
 
 import (
-	be_config "test_binbin/common/be_config"
+	config "binbin/common/config"
 	"strconv"
 	"testing"
 
@@ -10,7 +10,7 @@ import (
 
 func TestViper(t *testing.T) {
 	should := assert.New(t)
-	result, err := be_config.GetConfig("Redis.DB")
+	result, err := config.GetConfig("Redis.DB")
 	if should.NoError(err) {
 		t.Log(result)
 		intResult, err := strconv.Atoi(result)
@@ -22,7 +22,7 @@ func TestViper(t *testing.T) {
 }
 
 func init() {
-	if err := be_config.ViperInit(); err != nil {
+	if err := config.ViperInit(1); err != nil {
 		panic(err)
 	}
 

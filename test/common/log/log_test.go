@@ -2,7 +2,7 @@ package zap_log_test
 
 import (
 	"fmt"
-	zaplog "test_binbin/common/log"
+	zaplog "binbin/common/log"
 	"os"
 	"testing"
 

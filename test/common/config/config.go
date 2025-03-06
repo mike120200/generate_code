@@ -9,19 +9,34 @@ import (
 )
 
 // ViperInit 初始化viper
-func ViperInit() error {
-	viper.SetConfigName(".conf_linux")
-	viper.SetConfigType("json")
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("..")
-	viper.AddConfigPath("../..")
-	viper.AddConfigPath("../../..")
-	viper.AddConfigPath("../../../..")
-	viper.AddConfigPath("../../../../..")
-	if err := viper.ReadInConfig(); err != nil {
-		return err
+func ViperInit(mode int) error {
+	if mode == 1 {
+		viper.SetConfigName(".conf_linux_env")
+		viper.SetConfigType("json")
+		viper.AddConfigPath(".")
+		viper.AddConfigPath("..")
+		viper.AddConfigPath("../..")
+		viper.AddConfigPath("../../..")
+		viper.AddConfigPath("../../../..")
+		viper.AddConfigPath("../../../../..")
+		if err := viper.ReadInConfig(); err != nil {
+			return err
+		}
+		return nil
+	} else {
+		viper.SetConfigName(".conf_linux")
+		viper.SetConfigType("json")
+		viper.AddConfigPath(".")
+		viper.AddConfigPath("..")
+		viper.AddConfigPath("../..")
+		viper.AddConfigPath("../../..")
+		viper.AddConfigPath("../../../..")
+		viper.AddConfigPath("../../../../..")
+		if err := viper.ReadInConfig(); err != nil {
+			return err
+		}
+		return nil
 	}
-	return nil
 }
 
 // GetConfig 获取配置
@@ -31,7 +46,7 @@ func GetConfig(key string) (string, error) {
 		fmt.Println(" create logger failed, please check zap logger")
 		os.Exit(-1)
 	}
-	logger.Info("-->go/common/be_config/be_config.go GetConfig")
+	logger.Info("-->go/common/config/config.go GetConfig")
 	if key == "" {
 		logger.Error("the key is \"\" ")
 		return "", fmt.Errorf("the key is \"\" ")
@@ -48,4 +63,5 @@ func GetConfig(key string) (string, error) {
 	logger.Info("get config success, key: " + key + ", value: " + config)
 	return config, nil
 }
+
 

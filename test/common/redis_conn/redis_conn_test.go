@@ -2,9 +2,9 @@ package redisconn_test
 
 import (
 	"context"
-	config "test_binbin/common/be_config"
-	Log "test_binbin/common/log"
-	redis_conn "test_binbin/common/redis_conn"
+	config "binbin/common/config"
+	Log "binbin/common/log"
+	redis_conn "binbin/common/redis_conn"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -23,7 +23,7 @@ func init() {
 	if err := Log.LoggerInit(); err != nil {
 		panic(err)
 	}
-	if err := config.ViperInit(); err != nil {
+	if err := config.ViperInit(1); err != nil {
 		panic(err)
 	}
 	if err := redis_conn.Redis_init(); err != nil {

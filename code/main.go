@@ -31,15 +31,36 @@ func main() {
 	}
 
 	//pg数据库模块
-	if err := instance.AddFile("pg_conn/pgconn.go", generated_code.PgconnCode.ReplaceProjectName(prjName)); err != nil {
-		fmt.Println("AddFile Error:", err)
+	//选择pg的驱动
+	fmt.Println("Please enter a pg drive(1:gorm,2:pgx/v4,default:pgx/v4):")
+	pgDrive := ""
+	_, err = fmt.Scanln(&pgDrive)
+	if err != nil {
+		fmt.Println("enter Error:", err)
 		return
+	}
+	if pgDrive == "1" {
+		if err := instance.AddFile("pg_conn/pg_conn.go", string(generated_code.PgconnCode_gorm.ReplaceProjectName(prjName))); err != nil {
+			fmt.Println("AddFile Error:", err)
+			return
+		}
+		if err := instance.AddFile("pg_conn/pg_conn_test.go", string(generated_code.PgconnCodeTest_gorm.ReplaceProjectName(prjName))); err != nil {
+			fmt.Println("AddFile Error:", err)
+			return
+		}
+	} else {
+
+		if err := instance.AddFile("pg_conn/pgconn.go", generated_code.PgconnCode.ReplaceProjectName(prjName)); err != nil {
+			fmt.Println("AddFile Error:", err)
+			return
+		}
+
+		if err := instance.AddFile("pg_conn/pgconn_test.go", generated_code.PgconnCodeTest.ReplaceProjectName(prjName)); err != nil {
+			fmt.Println("AddFile Error:", err)
+			return
+		}
 	}
 
-	if err := instance.AddFile("pg_conn/pgconn_test.go", generated_code.PgconnCodeTest.ReplaceProjectName(prjName)); err != nil {
-		fmt.Println("AddFile Error:", err)
-		return
-	}
 	//redis模块
 	if err := instance.AddFile("redis_conn/redis_conn.go", generated_code.RedisCode.ReplaceProjectName(prjName)); err != nil {
 		fmt.Println("AddFile Error:", err)
@@ -51,11 +72,21 @@ func main() {
 	}
 
 	//配置文件模块
-	if err := instance.AddFile("be_config/config.go", generated_code.ConfigCode.ReplaceProjectName(prjName)); err != nil {
+	if err := instance.AddFile("config/config.go", generated_code.ConfigCode.ReplaceProjectName(prjName)); err != nil {
 		fmt.Println("AddFile Error:", err)
 		return
 	}
-	if err := instance.AddFile("be_config/config_test.go", generated_code.ConfigCodeTest.ReplaceProjectName(prjName)); err != nil {
+	if err := instance.AddFile("config/config_test.go", generated_code.ConfigCodeTest.ReplaceProjectName(prjName)); err != nil {
+		fmt.Println("AddFile Error:", err)
+		return
+	}
+
+	//结果模块
+	if err := instance.AddFile("result/response.go", generated_code.ResultGeneratedCode.ReplaceProjectName(prjName)); err != nil {
+		fmt.Println("AddFile Error:", err)
+		return
+	}
+	if err := instance.AddFile("result/response_test.go", generated_code.ResultCodeTest.ReplaceProjectName(prjName)); err != nil {
 		fmt.Println("AddFile Error:", err)
 		return
 	}
